@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <profile name="Maven 1" modules="">
+      <parameters>
+        <parameter value="-dependencyfile" />
+        <parameter value="F:\Coursera\Scala\Capstone-KafkaStreaming\target/.scala_dependencies" />
+      </parameters>
+    </profile>
+    <profile name="SBT 1" modules="capstone-kafkastreaming" />
+  </component>
+</project>

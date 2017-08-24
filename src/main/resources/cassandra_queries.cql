@@ -1,0 +1,1 @@
+CREATE TABLE WIKI_RC_TABLE (id uuid, wikipedia TEXT, user TEXT, isAnonymous BOOLEAN,pageURL TEXT, page TEXT, timestamp TIMESTAMP, isRobot BOOLEAN, namespace TEXT,geoCity TEXT, geoStateProvince TEXT,geoCountry TEXT, geoCountryCode2 TEXT, geoCountryCode3 TEXT, PRIMARY KEY(id));

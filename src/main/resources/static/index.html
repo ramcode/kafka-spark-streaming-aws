@@ -1,0 +1,770 @@
+<html>
+
+<head>
+    <title>Real Time Vehicle and Traffic Monitoring and Analytics Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Resources -->
+    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+    <script src="https://www.amcharts.com/lib/3/maps/js/usaLow.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+</head>
+
+<body>
+
+<!--{
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Brussels",
+      "latitude": 50.8371,
+      "longitude": 4.3676
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Copenhagen",
+      "latitude": 55.6763,
+      "longitude": 12.5681
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Paris",
+      "latitude": 48.8567,
+      "longitude": 2.3510
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Reykjavik",
+      "latitude": 64.1353,
+      "longitude": -21.8952
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Moscow",
+      "latitude": 55.7558,
+      "longitude": 37.6176
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Madrid",
+      "latitude": 40.4167,
+      "longitude": -3.7033
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "London",
+      "latitude": 51.5002,
+      "longitude": -0.1262,
+      "url": "http://www.google.co.uk"
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Peking",
+      "latitude": 39.9056,
+      "longitude": 116.3958
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "New Delhi",
+      "latitude": 28.6353,
+      "longitude": 77.2250
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Tokyo",
+      "latitude": 35.6785,
+      "longitude": 139.6823,
+      "url": "http://www.google.co.jp"
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Ankara",
+      "latitude": 39.9439,
+      "longitude": 32.8560
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Buenos Aires",
+      "latitude": -34.6118,
+      "longitude": -58.4173
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Brasilia",
+      "latitude": -15.7801,
+      "longitude": -47.9292
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Ottawa",
+      "latitude": 45.4235,
+      "longitude": -75.6979
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Washington",
+      "latitude": 38.8921,
+      "longitude": -77.0241
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Kinshasa",
+      "latitude": -4.3369,
+      "longitude": 15.3271
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Cairo",
+      "latitude": 30.0571,
+      "longitude": 31.2272
+    }, {
+      "zoomLevel": 5,
+      "scale": 0.5,
+      "title": "Pretoria",
+      "latitude": -25.7463,
+      "longitude": 28.1876
+    }//-->
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center" style="b">
+                <font color="#3a5fcd"> Real Time Vehicle and Traffic Monitoring, Analytics Dashboard </font>
+            </h2>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table outerTable">
+                <thead>
+                <tr>
+                    <th>Total Traffic Chart</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <canvas id="totalTrafficChart"></canvas>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table outerTable">
+                <thead>
+                <tr>
+                    <th>Total Traffic Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div id="total_traffic">
+                            <table class="table table-bordered table-condensed table-hover innerTable">
+                                <tr>
+                                    <thead>
+                                    <th>Route</th>
+                                    <th>Vehicle</th>
+                                    <th>Count</th>
+                                    <th>Time</th>
+                                    </thead>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table outerTable">
+                <thead>
+                <tr>
+                    <th>Real time vehicle Tracking</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+
+                        <div id="trafficMap"></div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table outerTable">
+                <thead>
+                <tr>
+                    <th>I-80 Traffic Chart</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <canvas id="route37TrafficChart"></canvas>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table outerTable">
+                <thead>
+                <tr>
+                    <th>Last 30 Seconds Window</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div id="window_traffic">
+                            <table class="table table-bordered table-condensed table-hover innerTable">
+                                <tr>
+                                    <thead>
+                                    <th>Route</th>
+                                    <th>Vehicle</th>
+                                    <th>Count</th>
+                                    <th>Time</th>
+                                    </thead>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table outerTable">
+                <thead>
+                <tr>
+                    <th>POI Vehicle Clustering</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <canvas id="poiTrafficChart"></canvas>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table outerTable">
+                <thead>
+                <tr>
+                    <th>Vehicles At POI</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div id="poi_traffic">
+                            <table class="table table-bordered table-condensed table-hover innerTable">
+                                <tr>
+                                    <thead>
+                                    <th>Vehicle Id</th>
+                                    <th>Vehicle</th>
+                                    <th>Distance</th>
+                                    <th>Time</th>
+                                    </thead>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/sockjs-1.1.1.min.js"></script>
+<script type="text/javascript" src="js/stomp.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+`
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/maps/js/usaLow.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript">
+	
+	 var totalTrafficChartData={
+                labels : ["Vehicle"],
+                datasets : [{
+                    label : "Route",
+                    data : [1]
+                }
+               ]
+		    };
+		    
+	var route37TrafficChartData={
+                labels : ["Vehicle"],
+                datasets : [{
+                    data : [1]
+                }
+               ]
+		    };
+		    
+	var poiTrafficChartData={
+                labels : ["Vehicle"],
+                datasets : [{
+                    data : [1]
+                }
+               ]
+		    };
+		
+		jQuery(document).ready(function() {		
+			//Charts
+			var ctx1 = document.getElementById("totalTrafficChart").getContext("2d");
+			window.tChart = new Chart(ctx1, {
+						type: 'bar',
+						data: totalTrafficChartData
+					});
+					
+			var ctx2 = document.getElementById("route37TrafficChart").getContext("2d");
+			window.wChart = new Chart(ctx2, {
+						type: 'doughnut',
+						data: route37TrafficChartData
+					});
+					
+			var ctx3 = document.getElementById("poiTrafficChart").getContext("2d");
+			window.pChart = new Chart(ctx3, {
+						type: 'radar',
+						data: poiTrafficChartData
+					});
+			
+			
+			//tables
+			var totalTrafficList = jQuery("#total_traffic");
+			var windowTrafficList = jQuery("#window_traffic");
+			var poiTrafficList = jQuery("#poi_traffic");
+			
+			//use sockjs			
+			var socket = new SockJS('/stomp');
+			var stompClient = Stomp.over(socket);
+			
+            stompClient.connect({ }, function(frame) {
+				//subscribe "/topic/trafficData" message 
+				stompClient.subscribe("/topic/trafficData", function(data) {
+					var dataList = data.body;
+					var resp=jQuery.parseJSON(dataList);
+					//Total traffic
+					var totalOutput='';
+					jQuery.each(resp.totalTraffic, function(i,vh) {
+						 totalOutput +="<tbody><tr><td>"+ vh.routeId+"</td><td>"+vh.vehicleType+"</td><td>"+vh.totalCount+"</td><td>"+vh.timeStamp+"</td></tr></tbody>";
+					});
+					var t_tabl_start = "<table class='table table-bordered table-condensed table-hover innerTable'><thead><tr><th>Route</th><th>Vehicle</th><th>Count</th><th>Time</th></tr></thead>";
+					var t_tabl_end = "</table>";
+					totalTrafficList.html(t_tabl_start+totalOutput+t_tabl_end);
+					
+					//Window traffic
+					var windowOutput='';
+					jQuery.each(resp.windowTraffic, function(i,vh) {
+						 windowOutput +="<tbody><tr><td>"+ vh.routeId+"</td><td>"+vh.vehicleType+"</td><td>"+vh.totalCount+"</td><td>"+vh.timeStamp+"</td></tr></tbody>";
+					});
+					var w_tabl_start = "<table class='table table-bordered table-condensed table-hover innerTable'><thead><tr><th>Route</th><th>Vehicle</th><th>Count</th><th>Time</th></tr></thead>";
+					var w_tabl_end = "</table>";
+					windowTrafficList.html(w_tabl_start+windowOutput+w_tabl_end);
+					
+					//POI data
+					var poiOutput='';
+					jQuery.each(resp.poiTraffic, function(i,vh) {
+						 poiOutput +="<tbody><tr><td>"+vh.vehicleId+"</td><td>"+vh.vehicleType.substring(0,5)+"</td><td>"+vh.distance+"</td><td>"+vh.timeStamp+"</td></tr></tbody>";
+					});
+					var p_tabl_start = "<table class='table table-bordered table-condensed table-hover innerTable'><thead><tr><th>Vehicle Id</th><th>Vehicle Type</th><th>Distance</th><th>Time</th></tr></thead>";
+					var p_tabl_end = "</table>";
+					poiTrafficList.html(p_tabl_start+poiOutput+p_tabl_end);
+					
+					//draw total traffic chart
+					drawBarChart(resp.totalTraffic,totalTrafficChartData);
+					window.tChart.update();
+					
+					//draw route-37 traffic chart
+					drawDoughnutChart(resp.totalTraffic,route37TrafficChartData);
+					window.wChart.update();
+					
+					//draw poi  chart
+					drawRadarChart(resp.poiTraffic,poiTrafficChartData);
+					window.pChart.update();
+
+                    //var newImages = []
+                    var newImages = plotTrafficMap(resp.vehicleData)
+
+                    loadTrafficData(newImages)
+
+
+				});
+            });
+		});
+
+		function loadTrafficData(newImages){
+           var chart = jQuery("#trafficMap")[0];
+           chart.dataProvider.images = newImages;
+           chart.validateData;
+            //updateMapData(chart);
+           }
+
+		function plotTrafficMap(vehicleData){
+
+		images = []
+
+		jQuery.each(vehicleData, function(i,vd){
+		images.push({
+		"zoomLevel": 5,
+      "scale": 0.5,
+      "title": vd.routeId,
+      "latitude": parseFloat(parseFloat(vd.latitude).toFixed(2)),
+      "longitude":parseFloat(parseFloat(vd.longitude).toFixed(2)),
+		});
+		});
+		return images;
+		}
+		
+		function drawBarChart(trafficDetail,trafficChartData){
+					//Prepare data for total traffic chart
+					var chartLabel = [ "Large Truck", "Small Truck", "Car", "Bus", "Taxi", "Bike", "Dodge"];
+					var routeName = ["I-5", "I-5W", "I-8", "I-10", "I-15", "I-15E", "I-40", "I-80"];
+					var chartData0 =[0,0,0,0,0,0,0], chartData1 =[0,0,0,0,0,0,0], chartData2 =[0,0,0,0,0,0,0],chartData3 =[0,0,0,0,0,0,0],
+					chartData4 =[0,0,0,0,0,0,0],chartData5 =[0,0,0,0,0,0,0],chartData6 =[0,0,0,0,0,0,0],chartData7 =[0,0,0,0,0,0,0];
+					
+					jQuery.each(trafficDetail, function(i,vh) {	 
+
+						if(vh.routeId == routeName[0]){
+							chartData0.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}					
+						if(vh.routeId == routeName[1]){
+							chartData1.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}	
+						if(vh.routeId == routeName[2]){
+							chartData2.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}
+						if(vh.routeId == routeName[3]){
+							chartData3.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}
+						if(vh.routeId == routeName[4]){
+							chartData4.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}
+						if(vh.routeId == routeName[5]){
+							chartData5.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}
+						if(vh.routeId == routeName[6]){
+							chartData6.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}
+						if(vh.routeId == routeName[7]){
+							chartData7.splice(chartLabel.indexOf(vh.vehicleType),1,vh.totalCount);
+						}
+					  });    
+
+				        var trafficData = {
+				        labels : chartLabel,
+				        datasets : [{
+				        	label				  : routeName[0],
+				            borderColor           : "#878BB6",
+				            backgroundColor       : "#878BB6",
+				            data                  : chartData0
+				        },
+				        {
+				        	label				  : routeName[1],
+				            borderColor           : "#4ACAB4",
+				            backgroundColor       : "#4ACAB4",
+				            data                  : chartData1
+				        },
+				        {
+				        	label				  : routeName[2],
+				            borderColor           : "#FFEA88",
+				            backgroundColor       : "#FFEA88",
+				            data                  : chartData2
+				        },
+				        {
+				        	label				  : routeName[3],
+				            borderColor           : "#464682",
+				            backgroundColor       : "#464682",
+				            data                  : chartData3
+				        },
+				        {
+				        	label				  : routeName[4],
+				            borderColor           : "#37b0c8",
+				            backgroundColor       : "#37b0c8",
+				            data                  : chartData4
+				        },
+				        {
+				        	label				  : routeName[5],
+				            borderColor           : "#5f3cb6",
+				            backgroundColor       : "#5f3cb6",
+				            data                  : chartData5
+				        },
+				        {
+				        	label				  : routeName[6],
+				            borderColor           : "#f4a7a7",
+				            backgroundColor       : "#f4a7a7",
+				            data                  : chartData6
+				        },
+				        {
+				        	label				  : routeName[7],
+				            borderColor           : "#356983",
+				            backgroundColor       : "#356983",
+				            data                  : chartData7
+				        }
+				        
+				        ]
+				      };
+					  //update chart
+					  trafficChartData.datasets=trafficData.datasets;
+					  trafficChartData.labels=trafficData.labels;		  
+		}
+		
+		function drawDoughnutChart(trafficDetail,trafficChartData){	
+					//Prepare data for Doughnut chart
+					var chartData =[];
+					var chartLabel = [];
+					jQuery.each(trafficDetail, function(i,vh) {
+						if(vh.routeId == "I-80"){
+						    chartLabel.push(vh.vehicleType);
+							chartData.push(vh.totalCount);
+						}
+					  });  				  
+				        var pieChartData = {
+				        labels : chartLabel,
+				        datasets : [{
+				            backgroundColor  : ["#E81574","#DDE815","#B315E8","#e9967a","#90ee90", "#f5f5f5","#15A892"],
+				            data             : chartData
+				        }]
+				    };
+				      
+					  //update chart
+					  trafficChartData.datasets=pieChartData.datasets;
+					  trafficChartData.labels=pieChartData.labels;	
+		}
+		
+		
+	function drawRadarChart(trafficDetail,trafficChartData){
+					var vTypeLabel =["Large Truck", "Small Truck"];
+					var chartLabel = [];
+					var chartData =[];
+
+					jQuery.each(trafficDetail, function(i,vh) {
+						chartData.push(vh.distance);
+						//chartLabel.push(vh.vehicleId);
+						if(chartLabel.indexOf(vh.vehicleType) == -1){
+						chartLabel.push(vh.vehicleType);
+						}
+					  });
+                      var routes =   ["I-10", "I-40", "I-80"]
+				     var radarChartData = {
+				        labels : chartLabel,
+				        datasets : []
+				      };
+                        var k = 0;
+                        var zeroFilledArray = new Array(chartLabel.length);
+                         for(j=0;j<chartData.length;j++){
+				      	 		zeroFilledArray[j]=0;
+							}
+				      for(i=0; i<trafficDetail.length;i++){
+					     var clr = getRandomColor();
+					     zeroFilledArray.splice(chartLabel.indexOf(trafficDetail[i].vehicleType),1,chartData[i]);
+					     k++;
+					     if(k == chartLabel.length){
+					      radarChartData.datasets.push(
+					          {
+					      		label				  : "",
+					      		fill: true,
+					      		borderColor           : clr,
+					            backgroundColor       : clr,
+					            pointBorderColor: "#fff",
+					            borderWidth			  : 5,
+					            pointRadius: 6,
+					            pointHoverRadius: 10,
+					            backgroundColor: "transparent",
+                                pointBorderWidth: 3,
+					            data                  : zeroFilledArray
+					           }
+					      	);
+					      	k = 0;
+					      	}
+					      }
+
+					  //update chart
+					  var chartOptions = {
+  scale: {
+    ticks: {
+      beginAtZero: true,
+      min: 0,
+      max: 30,
+      stepSize: 5
+    },
+    pointLabels: {
+      fontSize: 18
+    }
+  },
+  legend: {
+    position: 'left'
+  }
+};
+					  trafficChartData.datasets=radarChartData.datasets;
+					  trafficChartData.labels=radarChartData.labels;
+					  trafficChartData.chartOptions = chartOptions
+		}
+
+		
+		 function getRandomColor() {     
+            return  'rgba(' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ',' + ('1') + ')';
+        };
+
+
+
+
+
+
+   var map = AmCharts.makeChart( "trafficMap", {
+  "type": "map",
+  "theme": "light",
+  "projection": "miller",
+
+  "imagesSettings": {
+    "rollOverColor": "#089282",
+    "rollOverScale": 3,
+    "selectedScale": 3,
+    "selectedColor": "#089282",
+    "color": "#13564e"
+  },
+
+  "areasSettings": {
+    "unlistedAreasColor": "#15A892"
+  },
+
+  "dataProvider": {
+    "map": "usaLow",
+    "images":  []
+  }
+} );
+
+
+// add events to recalculate map position when the map is moved or zoomed
+map.addListener("init", updateCustomMarkers);
+map.addListener( "positionChanged", updateCustomMarkers );
+
+
+// this function will take current images on the map and create HTML elements for them
+function updateCustomMarkers( event ) {
+  // get map object
+  var map = event.chart;
+
+  // go through all of the images
+  for ( var x in map.dataProvider.images ) {
+    // get MapImage object
+    var image = map.dataProvider.images[ x ];
+
+    // check if it has corresponding HTML element
+    if ( 'undefined' == typeof image.externalElement )
+      image.externalElement = createCustomMarker( image );
+
+    // reposition the element accoridng to coordinates
+    var xy = map.coordinatesToStageXY( image.longitude, image.latitude );
+    image.externalElement.style.top = xy.y + 'px';
+    image.externalElement.style.left = xy.x + 'px';
+  }
+}
+
+function updateMapData( map ) {
+  // get map object
+  //var map = event.chart;
+
+  // go through all of the images
+  for ( var x in map.dataProvider.images ) {
+    // get MapImage object
+    var image = map.dataProvider.images[ x ];
+
+    // check if it has corresponding HTML element
+    if ( 'undefined' == typeof image.externalElement )
+      image.externalElement = createCustomMarker( image );
+
+    // reposition the element accoridng to coordinates
+    var xy = map.coordinatesToStageXY( image.longitude, image.latitude );
+    image.externalElement.style.top = xy.y + 'px';
+    image.externalElement.style.left = xy.x + 'px';
+  }
+}
+
+// this function creates and returns a new marker element
+function createCustomMarker( image ) {
+  // create holder
+  var holder = document.createElement( 'div' );
+  holder.className = 'map-marker';
+  holder.title = image.title;
+  holder.style.position = 'absolute';
+
+  // maybe add a link to it?
+  if ( undefined != image.url ) {
+    holder.onclick = function() {
+      window.location.href = image.url;
+    };
+    holder.className += ' map-clickable';
+  }
+
+  // create dot
+  var dot = document.createElement( 'div' );
+  dot.className = 'dot';
+  holder.appendChild( dot );
+
+  // create pulse
+  var pulse = document.createElement( 'div' );
+  pulse.className = 'pulse';
+  holder.appendChild( pulse );
+
+  // append the marker to the map container
+  image.chart.chartDiv.appendChild( holder );
+
+  return holder;
+}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
